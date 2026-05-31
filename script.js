@@ -197,6 +197,7 @@
   /* ---------- Mobile nav ---------- */
   const toggle = $("#navToggle");
   const links = $("#navLinks");
+  const navClose = $("#navClose");
   const backdrop = document.createElement("div");
   backdrop.className = "nav-backdrop";
   document.body.appendChild(backdrop);
@@ -205,20 +206,25 @@
     links.classList.remove("is-open");
     toggle.classList.remove("is-open");
     backdrop.classList.remove("is-open");
+    document.body.classList.remove("nav-open");
     toggle.setAttribute("aria-expanded", "false");
   }
   function openNav() {
     links.classList.add("is-open");
     toggle.classList.add("is-open");
     backdrop.classList.add("is-open");
+    document.body.classList.add("nav-open");
     toggle.setAttribute("aria-expanded", "true");
   }
   toggle.addEventListener("click", () => {
     links.classList.contains("is-open") ? closeNav() : openNav();
   });
+  if (navClose) navClose.addEventListener("click", closeNav);
   backdrop.addEventListener("click", closeNav);
   $$("#navLinks a").forEach((a) => a.addEventListener("click", closeNav));
   window.addEventListener("keydown", (e) => { if (e.key === "Escape") closeNav(); });
+  // Reset menu state when returning to desktop width
+  window.addEventListener("resize", () => { if (window.innerWidth > 920) closeNav(); });
 
   /* ---------- Navbar shadow + back-to-top ---------- */
   const nav = $("#nav");
@@ -226,7 +232,7 @@
   function onScroll() {
     const y = window.scrollY;
     nav.classList.toggle("is-scrolled", y > 10);
-    toTop.classList.toggle("is-visible", y > 600);
+    toTop.classList.toggle("is-visible", y > 400);
   }
   window.addEventListener("scroll", onScroll, { passive: true });
   onScroll();

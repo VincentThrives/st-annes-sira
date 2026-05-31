@@ -25,7 +25,7 @@
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
 
-html { scroll-behavior: smooth; scroll-padding-top: 96px; }
+html { scroll-behavior: smooth; scroll-padding-top: 96px; overflow-x: hidden; }
 
 body {
   font-family: "Poppins", system-ui, -apple-system, sans-serif;
@@ -89,6 +89,7 @@ a { color: inherit; text-decoration: none; }
 .nav__links a:not(.btn):hover, .nav__links a.is-active:not(.btn) { color: var(--maroon); background: rgba(123, 30, 43, 0.07); }
 .nav__cta { margin-left: 8px; padding: 10px 20px !important; }
 
+.nav__close { display: none; }
 .nav__toggle { display: none; flex-direction: column; gap: 5px; background: none; border: 0; cursor: pointer; padding: 8px; }
 .nav__toggle span { width: 26px; height: 2.5px; background: var(--maroon); border-radius: 2px; transition: transform 0.3s var(--ease), opacity 0.3s; }
 .nav__toggle.is-open span:nth-child(1) { transform: translateY(7.5px) rotate(45deg); }
@@ -380,21 +381,33 @@ a { color: inherit; text-decoration: none; }
 
 /* ---------- Mobile nav ---------- */
 @media (max-width: 920px) {
+  /* backdrop-filter creates a containing block for fixed children, which would
+     trap the off-canvas panel inside the navbar — disable it on mobile. */
+  .nav, .nav.is-scrolled { backdrop-filter: none; -webkit-backdrop-filter: none; background: rgba(251, 247, 239, 0.98); }
   .nav__toggle { display: flex; }
   .nav__links {
-    position: fixed; inset: 0 0 0 auto; width: min(320px, 82vw); height: 100vh;
-    flex-direction: column; align-items: stretch; gap: 4px; padding: 96px 24px 24px;
-    background: var(--cream); box-shadow: -20px 0 60px rgba(61,14,21,0.2);
-    transform: translateX(100%); transition: transform 0.4s var(--ease); z-index: 99;
+    position: fixed; top: 0; right: 0; bottom: 0; width: min(330px, 86vw); height: 100%;
+    flex-direction: column; align-items: stretch; gap: 4px; padding: 80px 22px 28px;
+    background: var(--cream); box-shadow: -20px 0 60px rgba(61,14,21,0.28);
+    transform: translateX(100%); visibility: hidden;
+    transition: transform 0.4s var(--ease), visibility 0.4s; z-index: 101; overflow-y: auto;
   }
-  .nav__links.is-open { transform: translateX(0); }
+  .nav__links.is-open { transform: translateX(0); visibility: visible; }
   .nav__links a { padding: 14px 16px; font-size: 1rem; border-radius: 10px; }
-  .nav__cta { margin: 12px 0 0; text-align: center; }
+  .nav__cta { margin: 14px 0 0; text-align: center; }
+  .nav__close {
+    display: grid; place-items: center; position: absolute; top: 16px; right: 18px;
+    width: 44px; height: 44px; border: 0; border-radius: 50%; cursor: pointer;
+    background: rgba(123, 30, 43, 0.08); color: var(--maroon);
+    font-size: 1.9rem; line-height: 1; transition: background 0.2s;
+  }
+  .nav__close:hover { background: rgba(123, 30, 43, 0.16); }
   .nav-backdrop {
-    position: fixed; inset: 0; background: rgba(61,14,21,0.45); z-index: 98;
+    position: fixed; inset: 0; background: rgba(61, 14, 21, 0.5); z-index: 100;
     opacity: 0; visibility: hidden; transition: opacity 0.3s, visibility 0.3s;
   }
   .nav-backdrop.is-open { opacity: 1; visibility: visible; }
+  body.nav-open { overflow: hidden; }
 }
 
 @media (max-width: 540px) {
