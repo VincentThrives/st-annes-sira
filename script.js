@@ -119,7 +119,7 @@
      - If a src is missing, it falls back to images/placeholder.svg automatically. */
   const GALLERY_FALLBACK = "images/placeholder.svg";
   const GALLERY = Array.from({ length: 20 }, function (_, i) {
-    return { src: "images/sample.jpg", caption: "School Moment " + (i + 1) };
+    return { src: "images/sample.png", caption: "School Moment " + (i + 1) };
   });
 
   /* ---------- Helpers ---------- */

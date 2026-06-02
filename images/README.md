@@ -1,9 +1,9 @@
 # Images
 
-The gallery (Gallery section on the site) currently shows **20 tiles**, all pointing at `sample.jpg`.
+The gallery (Gallery section on the site) currently shows **20 tiles**, all pointing at `sample.png`.
 
 ## Add your photo
-1. Save your photo in this folder as **`sample.jpg`**.
+1. Save your photo in this folder as **`sample.png`** (or update the path in `../script.js`).
 2. Reload the site — all 20 gallery tiles will show it.
 
 ## Use different photos per tile (later)
