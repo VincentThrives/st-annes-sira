@@ -42,6 +42,7 @@
         <a href="#results">Results</a>
         <a href="#achievements">Achievements</a>
         <a href="#facilities">Facilities</a>
+        <a href="#gallery">Gallery</a>
         <a href="#contact">Contact</a>
         <a href="#contact" class="btn btn--gold nav__cta">Admissions</a>
       </nav>
@@ -263,6 +264,36 @@
     </div>
   </section>
 
+  <!-- ===== Gallery ===== -->
+  <section class="section section--tint" id="gallery">
+    <div class="container">
+      <div class="section__head reveal">
+        <span class="eyebrow">Moments</span>
+        <h2 class="section__title">Photo Gallery</h2>
+        <p class="section__lead">Glimpses of life, learning and celebration at St. Anne's.
+        Swipe across and tap any photo to view it larger.</p>
+      </div>
+
+      <div class="carousel">
+        <button class="carousel__btn carousel__btn--prev" id="galPrev" aria-label="Previous photos" hidden>&#8249;</button>
+        <div class="carousel__track" id="galleryTrack"><!-- rendered by JS --></div>
+        <button class="carousel__btn carousel__btn--next" id="galNext" aria-label="Next photos">&#8250;</button>
+      </div>
+      <div class="carousel__progress"><span class="carousel__bar" id="galBar"></span></div>
+    </div>
+  </section>
+
+  <!-- ===== Lightbox ===== -->
+  <div class="lightbox" id="lightbox" aria-hidden="true" role="dialog" aria-label="Photo viewer">
+    <button class="lightbox__close" id="lightboxClose" aria-label="Close">&times;</button>
+    <button class="lightbox__nav lightbox__prev" id="lightboxPrev" aria-label="Previous photo">&#8249;</button>
+    <figure class="lightbox__figure">
+      <img class="lightbox__img" id="lightboxImg" src="" alt="" />
+      <figcaption class="lightbox__cap" id="lightboxCap"></figcaption>
+    </figure>
+    <button class="lightbox__nav lightbox__next" id="lightboxNext" aria-label="Next photo">&#8250;</button>
+  </div>
+
   <!-- ===== Co-curricular & Sports ===== -->
   <section class="section section--tint" id="cocurricular">
     <div class="container">
@@ -430,6 +461,7 @@
       <div class="footer__links">
         <h4>Quick Links</h4>
         <a href="#facilities">Facilities</a>
+        <a href="#gallery">Gallery</a>
         <a href="#board">Board of Members</a>
         <a href="#contact">Admissions</a>
         <a href="#contact">Contact</a>

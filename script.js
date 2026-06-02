@@ -112,6 +112,16 @@
 
   const RESULTS = { sslc: SSLC, science: SCIENCE, commerce: COMMERCE };
 
+  /* ---------- Gallery ----------
+     20 sample tiles, all pointing at images/sample.jpg.
+     - Drop your photo in as images/sample.jpg and every tile shows it.
+     - To use different photos later, change `src` per item (e.g. images/photo-2.jpg).
+     - If a src is missing, it falls back to images/placeholder.svg automatically. */
+  const GALLERY_FALLBACK = "images/placeholder.svg";
+  const GALLERY = Array.from({ length: 20 }, function (_, i) {
+    return { src: "images/sample.jpg", caption: "School Moment " + (i + 1) };
+  });
+
   /* ---------- Helpers ---------- */
   const $ = (sel, ctx) => (ctx || document).querySelector(sel);
   const $$ = (sel, ctx) => Array.from((ctx || document).querySelectorAll(sel));
@@ -165,6 +175,86 @@
         <h3>${esc(b.name)}</h3>
         <p>${esc(b.info)}</p>
       </div>`).join("");
+  }
+
+  /* ---------- Render: gallery carousel + lightbox ---------- */
+  const galleryTrack = $("#galleryTrack");
+  if (galleryTrack) {
+    galleryTrack.innerHTML = GALLERY.map((g, i) => `
+      <button class="gtile" type="button" data-index="${i}" aria-label="View ${esc(g.caption)}">
+        <img src="${esc(g.src)}" alt="${esc(g.caption)}" loading="lazy"
+             onerror="this.onerror=null;this.src='${GALLERY_FALLBACK}';" />
+        <span class="gtile__zoom" aria-hidden="true">&#128270;</span>
+        <span class="gtile__cap">${esc(g.caption)}</span>
+      </button>`).join("");
+
+    /* --- horizontal carousel controls --- */
+    const galPrev = $("#galPrev");
+    const galNext = $("#galNext");
+    const galBar = $("#galBar");
+
+    function pageSize() {
+      // scroll by roughly one viewport-width of tiles
+      return Math.max(galleryTrack.clientWidth * 0.9, 240);
+    }
+    function updateCarousel() {
+      const max = galleryTrack.scrollWidth - galleryTrack.clientWidth;
+      const x = galleryTrack.scrollLeft;
+      if (galPrev) galPrev.hidden = x <= 4;
+      if (galNext) galNext.hidden = x >= max - 4;
+      if (galBar) {
+        const visible = max > 0 ? galleryTrack.clientWidth / galleryTrack.scrollWidth : 1;
+        const prog = max > 0 ? x / max : 0;
+        const w = Math.max(visible * 100, 8);
+        galBar.style.width = w + "%";
+        galBar.style.marginLeft = prog * (100 - w) + "%";
+      }
+    }
+    if (galPrev) galPrev.addEventListener("click", () => galleryTrack.scrollBy({ left: -pageSize(), behavior: "smooth" }));
+    if (galNext) galNext.addEventListener("click", () => galleryTrack.scrollBy({ left: pageSize(), behavior: "smooth" }));
+    galleryTrack.addEventListener("scroll", updateCarousel, { passive: true });
+    window.addEventListener("resize", updateCarousel);
+    updateCarousel();
+
+    const lb = $("#lightbox");
+    const lbImg = $("#lightboxImg");
+    const lbCap = $("#lightboxCap");
+    let current = 0;
+
+    function showAt(i) {
+      current = (i + GALLERY.length) % GALLERY.length;
+      const item = GALLERY[current];
+      lbImg.onerror = function () { lbImg.onerror = null; lbImg.src = GALLERY_FALLBACK; };
+      lbImg.src = item.src;
+      lbImg.alt = item.caption;
+      lbCap.textContent = item.caption;
+    }
+    function openLb(i) {
+      showAt(i);
+      lb.classList.add("is-open");
+      lb.setAttribute("aria-hidden", "false");
+      document.body.classList.add("nav-open"); // reuse scroll lock
+    }
+    function closeLb() {
+      lb.classList.remove("is-open");
+      lb.setAttribute("aria-hidden", "true");
+      document.body.classList.remove("nav-open");
+    }
+
+    galleryTrack.addEventListener("click", (e) => {
+      const tile = e.target.closest(".gtile");
+      if (tile) openLb(parseInt(tile.dataset.index, 10));
+    });
+    $("#lightboxClose").addEventListener("click", closeLb);
+    $("#lightboxPrev").addEventListener("click", () => showAt(current - 1));
+    $("#lightboxNext").addEventListener("click", () => showAt(current + 1));
+    lb.addEventListener("click", (e) => { if (e.target === lb) closeLb(); });
+    window.addEventListener("keydown", (e) => {
+      if (!lb.classList.contains("is-open")) return;
+      if (e.key === "Escape") closeLb();
+      else if (e.key === "ArrowLeft") showAt(current - 1);
+      else if (e.key === "ArrowRight") showAt(current + 1);
+    });
   }
 
   /* ---------- Render: results table ---------- */
