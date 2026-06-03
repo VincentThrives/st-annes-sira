@@ -113,14 +113,20 @@
   const RESULTS = { sslc: SSLC, science: SCIENCE, commerce: COMMERCE };
 
   /* ---------- Gallery ----------
-     20 sample tiles, all pointing at images/sample.jpg.
-     - Drop your photo in as images/sample.jpg and every tile shows it.
-     - To use different photos later, change `src` per item (e.g. images/photo-2.jpg).
-     - If a src is missing, it falls back to images/placeholder.svg automatically. */
+     Each item = one photo in the carousel. To add more photos:
+       1. Put the image file in the images/ folder.
+       2. Add a line below: { src: "images/your-file.jpg", caption: "Your caption" }
+     If a src is missing, the tile falls back to images/placeholder.svg automatically. */
   const GALLERY_FALLBACK = "images/placeholder.svg";
-  const GALLERY = Array.from({ length: 20 }, function (_, i) {
-    return { src: "images/sample.png", caption: "School Moment " + (i + 1) };
-  });
+  const GALLERY = [
+    { src: "images/gallery-1.jpg", caption: "St. Anne's School, Sira" },
+    { src: "images/gallery-2.jpg", caption: "Campus Life" },
+    { src: "images/gallery-3.jpg", caption: "School Activities" },
+    { src: "images/gallery-4.jpg", caption: "Our Students" },
+    { src: "images/gallery-5.jpg", caption: "Events & Celebrations" },
+    { src: "images/gallery-6.jpg", caption: "Learning Together" },
+    { src: "images/gallery-7.jpg", caption: "Life at St. Anne's" },
+  ];
 
   /* ---------- Helpers ---------- */
   const $ = (sel, ctx) => (ctx || document).querySelector(sel);
