@@ -226,16 +226,28 @@
       </div>`).join("");
   }
 
-  /* ---------- Render: sports activities table ---------- */
-  const sportsBody = $("#sportsBody");
-  if (sportsBody) {
-    sportsBody.innerHTML = SPORTS.map((r) => `
-      <tr>
-        <td>${esc(r[0])}</td>
-        <td class="pct">${esc(r[1])}</td>
-        <td class="topper">${r[2].map(esc).join("<br>")}</td>
-        <td>${esc(r[3])}</td>
-      </tr>`).join("");
+  /* ---------- Render: sports activities (cards) ---------- */
+  function sportIcon(game) {
+    const g = game.toLowerCase();
+    if (g.indexOf("football") !== -1) return "⚽";
+    if (g.indexOf("volley") !== -1) return "🏐";
+    if (g.indexOf("kabaddi") !== -1) return "🤼";
+    if (g.indexOf("discus") !== -1) return "🥏";
+    if (g.indexOf("shot") !== -1) return "🏋️";
+    if (g.indexOf("relay") !== -1 || g.indexOf("running") !== -1 || g.indexOf("100 m") !== -1) return "🏃";
+    return "🏅";
+  }
+  const sportsGrid = $("#sportsGrid");
+  if (sportsGrid) {
+    sportsGrid.innerHTML = SPORTS.map((r) => `
+      <div class="sport-card reveal">
+        <div class="sport-card__top">
+          <span class="sport-card__year">${esc(r[1])}</span>
+          <span class="sport-card__icon">${sportIcon(r[3])}</span>
+        </div>
+        <div class="sport-card__names">${r[2].map(esc).join("<br>")}</div>
+        <div class="sport-card__game">${esc(r[3])}</div>
+      </div>`).join("");
   }
 
   /* ---------- Render: gallery carousel + lightbox ---------- */
