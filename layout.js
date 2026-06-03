@@ -15,7 +15,7 @@
      index.html#anchor (works from any page). */
   var NAV = [
     { label: "Home", href: "index.html" },
-    { label: "About", href: "index.html#about" },
+    { label: "About", href: "about.html" },
     { label: "Academics", href: "index.html#offer" },
     { label: "Achievements", href: "achievements.html" },
     { label: "Results", href: "results.html" },
@@ -60,7 +60,7 @@
         "<p>The first English medium school in Sira, committed to academic excellence and value-based learning since 1977.</p></div>" +
       "</div>" +
       '<div class="footer__links"><h4>Explore</h4>' +
-        '<a href="index.html#about">About Us</a>' +
+        '<a href="about.html">About Us</a>' +
         '<a href="index.html#offer">Academics</a>' +
         '<a href="results.html">Results</a>' +
         '<a href="achievements.html">Achievements</a>' +
@@ -68,7 +68,7 @@
       '<div class="footer__links"><h4>Quick Links</h4>' +
         '<a href="index.html#facilities">Facilities</a>' +
         '<a href="gallery.html">Gallery</a>' +
-        '<a href="index.html#board">Board of Members</a>' +
+        '<a href="about.html#board">Board of Members</a>' +
         '<a href="index.html#contact">Admissions</a>' +
         '<a href="index.html#contact">Contact</a>' +
       "</div>" +
