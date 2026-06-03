@@ -128,6 +128,37 @@
     { src: "images/gallery-7.jpg", caption: "Life at St. Anne's" },
   ];
 
+  /* ---------- Sports ---------- */
+  const SPORT_CHAMPIONS = [
+    { year: "2013–14", medal: "🏐", team: "Karthik &amp; Team", game: "Volleyball Winners" },
+    { year: "2013–14", medal: "⚽", team: "Dhanush &amp; Team", game: "Football Winners" },
+    { year: "2015–16", medal: "🏐", team: "Arun K &amp; Team", game: "Volleyball Winners" },
+  ];
+
+  // [SL, Year, [names...], Game]
+  const SPORTS = [
+    ["01", "2000", ["Amith"], "State Level Relay – 100 m"],
+    ["02", "2001", ["Dhananjay"], "Discus Throw"],
+    ["03", "2002", ["Sagar"], "Football"],
+    ["04", "2003", ["Harshavardhan", "Keshav", "Karthik"], "4×100 m Relay"],
+    ["05", "2004", ["Akshay"], "Discus Throw"],
+    ["06", "2005", ["Amith", "Harsha"], "4×100 m Relay"],
+    ["07", "2006", ["Mohammed Burhan"], "Football"],
+    ["08", "2007", ["Gagan Dev"], "Shot Put"],
+    ["09", "2008", ["S. B. Bharath", "Sharfuddin & Team"], "Volleyball"],
+    ["10", "2009", ["Gagan Dev"], "Football"],
+    ["11", "2010", ["Gagan Dev", "Amith"], "Football"],
+    ["12", "2011", ["Gagan Dev", "Swamy Darshan"], "Kabaddi"],
+    ["13", "2012", ["Bharath", "Sharfuddin"], "Volleyball"],
+    ["14", "2013", ["Harshitha"], "100 m Running"],
+    ["15", "2014", ["Priya P Shetty", "Harshitha"], "Volleyball"],
+    ["16", "2015", ["Sameer"], "100 m Running"],
+    ["17", "2016", ["Raghavendra"], "Discus Throw"],
+    ["18", "2017", ["Sharath"], "Football"],
+    ["19", "2022", ["Vidyuth"], "Shot Put"],
+    ["20", "2025", ["Nawaz", "Vishnu", "Gowtham"], "Football"],
+  ];
+
   /* ---------- Helpers ---------- */
   const $ = (sel, ctx) => (ctx || document).querySelector(sel);
   const $$ = (sel, ctx) => Array.from((ctx || document).querySelectorAll(sel));
@@ -181,6 +212,30 @@
         <h3>${esc(b.name)}</h3>
         <p>${esc(b.info)}</p>
       </div>`).join("");
+  }
+
+  /* ---------- Render: sport champions ---------- */
+  const championsGrid = $("#championsGrid");
+  if (championsGrid) {
+    championsGrid.innerHTML = SPORT_CHAMPIONS.map((c) => `
+      <div class="champion reveal">
+        <div class="champion__medal">${c.medal}</div>
+        <span class="champion__year">${c.year}</span>
+        <div class="champion__team">${c.team}</div>
+        <span class="champion__game">${esc(c.game)}</span>
+      </div>`).join("");
+  }
+
+  /* ---------- Render: sports activities table ---------- */
+  const sportsBody = $("#sportsBody");
+  if (sportsBody) {
+    sportsBody.innerHTML = SPORTS.map((r) => `
+      <tr>
+        <td>${esc(r[0])}</td>
+        <td class="pct">${esc(r[1])}</td>
+        <td class="topper">${r[2].map(esc).join("<br>")}</td>
+        <td>${esc(r[3])}</td>
+      </tr>`).join("");
   }
 
   /* ---------- Render: gallery carousel + lightbox ---------- */
