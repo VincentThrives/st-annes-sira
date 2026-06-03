@@ -14,44 +14,8 @@
 </head>
 <body>
 
-  <!-- ===== Top announcement bar ===== -->
-  <div class="topbar">
-    <div class="container topbar__inner">
-      <span class="topbar__item">📍 Sira, Tumakuru District, Karnataka</span>
-      <span class="topbar__item topbar__item--hide">✉️ stannes.sira@school.edu</span>
-      <span class="topbar__item">📞 +91 00000 00000</span>
-    </div>
-  </div>
-
-  <!-- ===== Navbar ===== -->
-  <header class="nav" id="nav">
-    <div class="container nav__inner">
-      <a href="#home" class="brand" aria-label="St. Anne's School Home">
-        <span class="brand__mark">SA</span>
-        <span class="brand__text">
-          <strong>St. Anne's School</strong>
-          <small>Sira &middot; Est. 1977</small>
-        </span>
-      </a>
-
-      <nav class="nav__links" id="navLinks">
-        <button class="nav__close" id="navClose" aria-label="Close menu">&times;</button>
-        <a href="#home">Home</a>
-        <a href="#about">About</a>
-        <a href="#offer">Academics</a>
-        <a href="#results">Results</a>
-        <a href="#achievements">Achievements</a>
-        <a href="#facilities">Facilities</a>
-        <a href="#gallery">Gallery</a>
-        <a href="#contact">Contact</a>
-        <a href="#contact" class="btn btn--gold nav__cta">Admissions</a>
-      </nav>
-
-      <button class="nav__toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false">
-        <span></span><span></span><span></span>
-      </button>
-    </div>
-  </header>
+  <!-- Shared banner (top bar + navbar) injected by layout.js -->
+  <div id="site-header"></div>
 
   <!-- ===== Hero ===== -->
   <section class="hero" id="home">
@@ -91,8 +55,34 @@
     <a href="#about" class="hero__scroll" aria-label="Scroll down">&#x2193;</a>
   </section>
 
+  <!-- ===== Quick links to the dedicated pages ===== -->
+  <section class="section" id="explore">
+    <div class="container">
+      <div class="explore-cards">
+        <a class="ecard reveal" href="achievements.html">
+          <span class="ecard__icon">🏅</span>
+          <h3>Achievements</h3>
+          <p>State ranks, awards and 49 years of excellence.</p>
+          <span class="ecard__go">View →</span>
+        </a>
+        <a class="ecard reveal" href="results.html">
+          <span class="ecard__icon">📊</span>
+          <h3>Results</h3>
+          <p>SSLC &amp; PU toppers and pass percentages since 1987.</p>
+          <span class="ecard__go">View →</span>
+        </a>
+        <a class="ecard reveal" href="gallery.html">
+          <span class="ecard__icon">📸</span>
+          <h3>Gallery</h3>
+          <p>Glimpses of campus life, events and celebrations.</p>
+          <span class="ecard__go">View →</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
   <!-- ===== About / History ===== -->
-  <section class="section" id="about">
+  <section class="section section--tint" id="about">
     <div class="container">
       <div class="section__head reveal">
         <span class="eyebrow">Our Heritage</span>
@@ -144,7 +134,7 @@
   </section>
 
   <!-- ===== Vision / Mission / Objective ===== -->
-  <section class="section section--tint" id="vision">
+  <section class="section" id="vision">
     <div class="container">
       <div class="section__head reveal">
         <span class="eyebrow">What Drives Us</span>
@@ -177,7 +167,7 @@
   </section>
 
   <!-- ===== What We Offer ===== -->
-  <section class="section" id="offer">
+  <section class="section section--tint" id="offer">
     <div class="container">
       <div class="section__head reveal">
         <span class="eyebrow">Academics</span>
@@ -186,68 +176,6 @@
         pre-primary through to pre-university specialisation.</p>
       </div>
       <div class="offer-grid" id="offerGrid"><!-- rendered by JS --></div>
-    </div>
-  </section>
-
-  <!-- ===== Achievements ===== -->
-  <section class="section section--dark" id="achievements">
-    <div class="container">
-      <div class="section__head reveal">
-        <span class="eyebrow eyebrow--light">Pride of Sira</span>
-        <h2 class="section__title section__title--light">Our Achievements</h2>
-        <p class="section__lead section__lead--light">
-          49 years of excellence, outstanding results and SSLC State Ranks.
-        </p>
-      </div>
-
-      <div class="ranks" id="ranksGrid"><!-- rendered by JS --></div>
-
-      <div class="award reveal">
-        <div class="award__icon">🏅</div>
-        <div>
-          <strong>Young Scientist Award</strong>
-          <span>Sampreeth S R</span>
-        </div>
-        <div class="award__divider"></div>
-        <div class="award__icon">🎓</div>
-        <div>
-          <strong>9 Years</strong>
-          <span>of excellent PU results</span>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ===== Results ===== -->
-  <section class="section section--tint" id="results">
-    <div class="container">
-      <div class="section__head reveal">
-        <span class="eyebrow">Track Record</span>
-        <h2 class="section__title">Academic Results &amp; Toppers</h2>
-        <p class="section__lead">Consistent cent-percent results and top scorers since
-        our very inception.</p>
-      </div>
-
-      <div class="tabs reveal" role="tablist">
-        <button class="tab is-active" data-tab="sslc" role="tab">SSLC</button>
-        <button class="tab" data-tab="science" role="tab">PUC — Science</button>
-        <button class="tab" data-tab="commerce" role="tab">PUC — Commerce</button>
-      </div>
-
-      <div class="table-wrap reveal">
-        <table class="rtable">
-          <thead>
-            <tr>
-              <th>Year</th>
-              <th>School %</th>
-              <th>Topper</th>
-              <th class="hide-sm">Total Marks</th>
-              <th>Individual %</th>
-            </tr>
-          </thead>
-          <tbody id="resultsBody"><!-- rendered by JS --></tbody>
-        </table>
-      </div>
     </div>
   </section>
 
@@ -263,36 +191,6 @@
       <div class="fac-grid" id="facGrid"><!-- rendered by JS --></div>
     </div>
   </section>
-
-  <!-- ===== Gallery ===== -->
-  <section class="section section--tint" id="gallery">
-    <div class="container">
-      <div class="section__head reveal">
-        <span class="eyebrow">Moments</span>
-        <h2 class="section__title">Photo Gallery</h2>
-        <p class="section__lead">Glimpses of life, learning and celebration at St. Anne's.
-        Swipe across and tap any photo to view it larger.</p>
-      </div>
-
-      <div class="carousel">
-        <button class="carousel__btn carousel__btn--prev" id="galPrev" aria-label="Previous photos" hidden>&#8249;</button>
-        <div class="carousel__track" id="galleryTrack"><!-- rendered by JS --></div>
-        <button class="carousel__btn carousel__btn--next" id="galNext" aria-label="Next photos">&#8250;</button>
-      </div>
-      <div class="carousel__progress"><span class="carousel__bar" id="galBar"></span></div>
-    </div>
-  </section>
-
-  <!-- ===== Lightbox ===== -->
-  <div class="lightbox" id="lightbox" aria-hidden="true" role="dialog" aria-label="Photo viewer">
-    <button class="lightbox__close" id="lightboxClose" aria-label="Close">&times;</button>
-    <button class="lightbox__nav lightbox__prev" id="lightboxPrev" aria-label="Previous photo">&#8249;</button>
-    <figure class="lightbox__figure">
-      <img class="lightbox__img" id="lightboxImg" src="" alt="" />
-      <figcaption class="lightbox__cap" id="lightboxCap"></figcaption>
-    </figure>
-    <button class="lightbox__nav lightbox__next" id="lightboxNext" aria-label="Next photo">&#8250;</button>
-  </div>
 
   <!-- ===== Co-curricular & Sports ===== -->
   <section class="section section--tint" id="cocurricular">
@@ -440,44 +338,10 @@
     </div>
   </section>
 
-  <!-- ===== Footer ===== -->
-  <footer class="footer">
-    <div class="container footer__inner">
-      <div class="footer__brand">
-        <span class="brand__mark">SA</span>
-        <div>
-          <strong>St. Anne's School, Sira</strong>
-          <p>The first English medium school in Sira, committed to academic excellence
-          and value-based learning since 1977.</p>
-        </div>
-      </div>
-      <div class="footer__links">
-        <h4>Explore</h4>
-        <a href="#about">About Us</a>
-        <a href="#offer">Academics</a>
-        <a href="#results">Results</a>
-        <a href="#achievements">Achievements</a>
-      </div>
-      <div class="footer__links">
-        <h4>Quick Links</h4>
-        <a href="#facilities">Facilities</a>
-        <a href="#gallery">Gallery</a>
-        <a href="#board">Board of Members</a>
-        <a href="#contact">Admissions</a>
-        <a href="#contact">Contact</a>
-      </div>
-    </div>
-    <div class="footer__bar">
-      <div class="container">
-        <span>&copy; <span id="year"></span> St. Anne's School, Sira. All rights reserved.</span>
-        <span>Run by St. Anne's Educational Society, Bangalore.</span>
-        <span class="footer__powered">Powered by <strong>Vincent Thrives Private Limited</strong></span>
-      </div>
-    </div>
-  </footer>
+  <!-- Shared footer injected by layout.js -->
+  <div id="site-footer"></div>
 
-  <a href="#home" class="to-top" id="toTop" aria-label="Back to top">&#x2191;</a>
-
+  <script src="layout.js"></script>
   <script src="script.js"></script>
 </body>
 </html>

@@ -437,6 +437,37 @@ a { color: inherit; text-decoration: none; }
   .lightbox__next { right: 22px; }
 }
 
+/* ---------- Page banner (sub-pages) ---------- */
+.page-banner {
+  position: relative; color: #fff; text-align: center; padding: 58px 0 50px; overflow: hidden;
+  background:
+    radial-gradient(900px 400px at 85% -20%, rgba(201,162,39,0.22), transparent 60%),
+    linear-gradient(135deg, var(--maroon) 0%, var(--maroon-dark) 50%, var(--maroon-deep) 100%);
+}
+.page-banner .eyebrow { margin-bottom: 10px; }
+.page-banner h1 { font-size: clamp(1.9rem, 5vw, 3rem); font-weight: 800; }
+.page-banner p { max-width: 640px; margin: 14px auto 0; color: rgba(255,255,255,0.85); font-weight: 300; }
+.crumb { font-size: 0.82rem; color: rgba(255,255,255,0.7); margin-bottom: 18px; letter-spacing: 0.3px; }
+.crumb a { color: var(--gold-light); }
+.crumb a:hover { text-decoration: underline; }
+.crumb span { margin: 0 8px; opacity: 0.6; }
+
+/* ---------- Explore cards (home) ---------- */
+.explore-cards { display: grid; gap: 20px; grid-template-columns: 1fr; }
+@media (min-width: 720px) { .explore-cards { grid-template-columns: repeat(3, 1fr); } }
+.ecard {
+  display: block; background: var(--white); border: 1px solid var(--line); border-radius: var(--radius);
+  padding: 30px 26px; box-shadow: var(--shadow-sm); position: relative; overflow: hidden;
+  transition: transform 0.3s var(--ease), box-shadow 0.3s, border-color 0.3s;
+}
+.ecard::before { content: ""; position: absolute; inset: 0 0 auto; height: 5px; background: linear-gradient(90deg, var(--gold), var(--maroon)); }
+.ecard:hover { transform: translateY(-8px); box-shadow: var(--shadow-md); border-color: var(--gold); }
+.ecard__icon { font-size: 2rem; }
+.ecard h3 { font-size: 1.3rem; color: var(--maroon-dark); margin: 12px 0 6px; }
+.ecard p { font-size: 0.92rem; color: var(--ink-soft); }
+.ecard__go { display: inline-block; margin-top: 14px; font-weight: 600; color: var(--maroon); transition: transform 0.2s var(--ease); }
+.ecard:hover .ecard__go { transform: translateX(5px); }
+
 /* ---------- Footer ---------- */
 .footer { background: var(--maroon-deep); color: rgba(255,255,255,0.85); padding: 60px 0 0; }
 .footer__inner { display: grid; gap: 36px; grid-template-columns: 1fr; padding-bottom: 44px; }
