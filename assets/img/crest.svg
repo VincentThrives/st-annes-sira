@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" role="img" aria-label="St. Anne's School, Sira crest">
+  <defs>
+    <linearGradient id="flame" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#ffe9a8"/>
+      <stop offset="0.5" stop-color="#e9c66a"/>
+      <stop offset="1" stop-color="#c8852e"/>
+    </linearGradient>
+    <radialGradient id="field" cx="0.5" cy="0.4" r="0.7">
+      <stop offset="0" stop-color="#223a63"/>
+      <stop offset="1" stop-color="#10203c"/>
+    </radialGradient>
+    <path id="arcTop" d="M 9,60 a 51,51 0 1,1 102,0" fill="none"/>
+    <path id="arcBot" d="M 14,60 a 46,46 0 1,0 92,0" fill="none"/>
+  </defs>
+
+  <!-- seal body -->
+  <circle cx="60" cy="60" r="58" fill="url(#field)" stroke="#c8a04e" stroke-width="2.5"/>
+  <circle cx="60" cy="60" r="45.5" fill="none" stroke="#c8a04e" stroke-width="1.4" opacity="0.85"/>
+  <circle cx="60" cy="60" r="43" fill="#16284a"/>
+
+  <!-- circular text -->
+  <text fill="#e7d3a3" font-family="Georgia, 'Times New Roman', serif" font-size="9.4" font-weight="700" letter-spacing="1.6">
+    <textPath href="#arcTop" startOffset="50%" text-anchor="middle">ST. ANNE'S SCHOOL</textPath>
+  </text>
+  <text fill="#e7d3a3" font-family="Georgia, 'Times New Roman', serif" font-size="8.4" font-weight="700" letter-spacing="2.4">
+    <textPath href="#arcBot" startOffset="50%" text-anchor="middle">SIRA &#9670; 1977</textPath>
+  </text>
+
+  <!-- side ornaments where the two arcs meet -->
+  <path d="M 9,60 l 3,-3 3,3 -3,3 z" fill="#c8a04e"/>
+  <path d="M 111,60 l -3,-3 -3,3 3,3 z" fill="#c8a04e"/>
+
+  <!-- flame of wisdom -->
+  <path d="M60,40 C66,48 70,53 66,60 C64,65 56,65 54,60 C50,53 55,47 60,40 Z" fill="url(#flame)"/>
+  <path d="M60,46 C63,51 65,55 62,59 C60,62 56,61 56,57 C55,53 58,50 60,46 Z" fill="#fff6da"/>
+
+  <!-- open book -->
+  <g stroke="#c8a04e" stroke-width="0.9" stroke-linejoin="round">
+    <path d="M60,86 C52,80.5 42,80.5 34,82.5 L34,71 C42,69 52,69 60,74 Z" fill="#f4ecd8"/>
+    <path d="M60,86 C68,80.5 78,80.5 86,82.5 L86,71 C78,69 68,69 60,74 Z" fill="#fbf5e6"/>
+  </g>
+  <line x1="60" y1="74" x2="60" y2="86" stroke="#c8a04e" stroke-width="1.1"/>
+  <g stroke="#c9ac6f" stroke-width="0.6" opacity="0.8">
+    <line x1="40" y1="74.5" x2="55" y2="76.5"/>
+    <line x1="40" y1="77.5" x2="55" y2="79.5"/>
+    <line x1="65" y1="76.5" x2="80" y2="74.5"/>
+    <line x1="65" y1="79.5" x2="80" y2="77.5"/>
+  </g>
+</svg>
