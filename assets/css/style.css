@@ -89,9 +89,57 @@ img { max-width: 100%; display: block; }
 .btn-gold { background: var(--gold); color: var(--navy); }
 .btn-gold:hover { background: #d8b566; color: var(--navy); transform: translateY(-2px); }
 .btn-outline { border-color: rgba(255,255,255,.6); color: #fff; }
+/* Nammavidyalaya button: allow the long URL to wrap inside the pill */
+.nv-btn { display: inline-block; text-align: center; white-space: normal; max-width: 100%; }
+.nv-url { color: var(--gold); overflow-wrap: anywhere; word-break: break-word; }
 .btn-outline:hover { background: #fff; color: var(--navy); }
 .btn-ghost { border-color: var(--navy); color: var(--navy); }
 .btn-ghost:hover { background: var(--navy); color: #fff; }
+
+/* ---------- Floating quick-contact (right side, circular) ---------- */
+.contact-fab {
+  position: fixed; right: 16px; top: 50%; transform: translateY(-50%);
+  z-index: 40; display: flex; flex-direction: column; gap: 14px;
+}
+.contact-fab-btn {
+  position: relative;
+  width: 46px; height: 46px; border-radius: 50%;
+  display: grid; place-items: center; text-decoration: none;
+  box-shadow: 0 10px 26px -8px rgba(20,35,63,.6);
+  transition: transform .25s ease, box-shadow .25s ease;
+}
+.contact-fab-btn:hover { transform: translateY(-2px) scale(1.06); box-shadow: 0 14px 32px -8px rgba(20,35,63,.75); }
+.contact-fab-btn .cf-ico { font-size: 1.2rem; line-height: 1; }
+.cf-call .cf-ico { color: #16a34a; }
+.cf-mail .cf-ico { color: #ff5a5a; }
+/* label is a pill tooltip that slides out to the LEFT, so the button stays a clean circle */
+.contact-fab-btn .cf-label {
+  position: absolute; right: calc(100% + 12px); top: 50%;
+  transform: translateY(-50%) translateX(8px);
+  white-space: nowrap; pointer-events: none;
+  background: var(--navy); color: #fff;
+  padding: 9px 15px; border-radius: 999px;
+  font-weight: 600; font-size: .85rem;
+  box-shadow: 0 10px 24px -10px rgba(20,35,63,.7);
+  opacity: 0; transition: opacity .3s ease, transform .3s ease;
+  /* auto reveal twice on load, then hide — still shows on hover */
+  animation: cfPulse 1.1s ease-in-out 0.8s 2;
+}
+.contact-fab:hover .cf-label { opacity: 1; transform: translateY(-50%) translateX(0); }
+@keyframes cfPulse {
+  0%   { opacity: 0; transform: translateY(-50%) translateX(8px); }
+  25%  { opacity: 1; transform: translateY(-50%) translateX(0); }
+  65%  { opacity: 1; transform: translateY(-50%) translateX(0); }
+  100% { opacity: 0; transform: translateY(-50%) translateX(8px); }
+}
+.cf-call { background: var(--gold); }
+.cf-mail { background: linear-gradient(135deg, var(--navy), var(--maroon)); }
+@media (max-width: 760px) {
+  .contact-fab { right: 12px; gap: 12px; }
+  .contact-fab-btn { width: 42px; height: 42px; }
+  .contact-fab-btn .cf-ico { font-size: 1.1rem; }
+  .contact-fab-btn .cf-label { font-size: .8rem; padding: 8px 13px; }
+}
 
 /* ---------- Top bar ---------- */
 .topbar {
@@ -202,7 +250,7 @@ img { max-width: 100%; display: block; }
 @keyframes heroRise { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: none; } }
 
 .hero .hero-eyebrow {
-  position: relative; overflow: hidden;
+  position: relative; overflow: hidden; white-space: nowrap;
   background: linear-gradient(135deg, #e0bf73 0%, var(--gold) 48%, #b8862f 100%);
   border: 1px solid rgba(255,255,255,.6);
   color: var(--navy); font-weight: 700; letter-spacing: .04em; font-size: .9rem;
@@ -269,9 +317,19 @@ img { max-width: 100%; display: block; }
 .chip .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--gold); box-shadow: 0 0 0 4px rgba(200,160,78,.25); }
 
 @media (max-width: 760px) {
-  .hero-crest { width: 300px; height: 300px; right: -110px; opacity: .08; }
-  .hero-stats { max-width: none; }
-  .hstat { flex: 1 1 45%; }
+  .hero-crest { display: none; }
+  /* cropped background video on mobile — left of centre */
+  .hero-video { object-position: 33% center; }
+  /* hide the hero glass stats on mobile — same numbers show in the navy section below */
+  .hero-stats { display: none; }
+  .hero .hero-eyebrow { font-size: clamp(.56rem, 2.9vw, .72rem); padding: 5px 12px; letter-spacing: .02em; align-self: flex-start; }
+  .hero-cta { gap: 8px; margin-top: 18px; }
+  .hero-cta .btn { padding: 8px 15px; font-size: .8rem; }
+  .hero-stats { margin-top: 18px; }
+  .hstat { flex: 1 1 45%; padding: 8px 12px; }
+  .hstat .n { font-size: 1.15rem; }
+  .hstat .n i { font-size: .72rem; }
+  .hstat .l { font-size: .58rem; margin-top: 2px; letter-spacing: .04em; }
   .hstat:nth-child(2) { border-right: none; }
   .hstat:nth-child(1), .hstat:nth-child(2) { border-bottom: 1px solid rgba(255,255,255,.12); }
   .hero-scroll { display: none; }
@@ -443,6 +501,8 @@ img { max-width: 100%; display: block; }
 .photo-badge .small { font-size: .62rem; letter-spacing: .12em; text-transform: uppercase; color: #e6ebf4; margin-top: 2px; }
 
 @media (max-width: 760px) {
+  /* stack the footer to a single column so long emails/numbers fit */
+  .footer-grid { grid-template-columns: 1fr; gap: 30px; }
   /* show the school photo first (visual-first) on mobile */
   .welcome-split .photo-feature { order: -1; margin: 8px 6px 30px 0; }
   .photo-feature { padding: 20px 8px 0 0; }
@@ -706,7 +766,7 @@ table.data tbody tr:hover { background: #f3ece0; }
 .site-footer a { color: #c3ccda; }
 .site-footer a:hover { color: var(--gold); }
 .foot-links { list-style: none; }
-.foot-links li { margin-bottom: 9px; font-size: .93rem; }
+.foot-links li { margin-bottom: 9px; font-size: .93rem; overflow-wrap: anywhere; }
 .foot-brand { display: flex; gap: 14px; align-items: center; margin-bottom: 14px; }
 .foot-brand .crest {
   height: 58px; width: auto; display: block;
@@ -731,6 +791,10 @@ table.data tbody tr:hover { background: #f3ece0; }
   .footer-grid { grid-template-columns: 1fr 1fr; }
   .stats { grid-template-columns: repeat(2, 1fr); }
 }
+/* stack the footer to one column on phones (placed after the 960px rule so it wins) */
+@media (max-width: 640px) {
+  .footer-grid { grid-template-columns: 1fr; gap: 30px; }
+}
 @media (max-width: 1220px) {
   /* backdrop-filter on the header would create a containing block that traps the
      fixed off-canvas menu inside the header — disable it so the menu fills the screen */
@@ -738,7 +802,7 @@ table.data tbody tr:hover { background: #f3ece0; }
   .nav-links {
     position: fixed; inset: 0 0 0 20%;
     flex-direction: column; align-items: stretch; justify-content: flex-start;
-    gap: 0; padding: 116px 0 72px; overflow-y: auto;
+    gap: 0; padding: 74px 0 56px; overflow-y: auto;
     background: linear-gradient(165deg, #1f3357 0%, #14233f 55%, #0d1830 100%);
     counter-reset: navi;
     /* clip-path wipe keeps the panel inside the viewport (no horizontal overflow)
@@ -791,14 +855,48 @@ table.data tbody tr:hover { background: #f3ece0; }
   .nav-toggle.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
   .nav-toggle.open span:nth-child(2) { opacity: 0; }
   .nav-toggle.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+  /* mobile/tablet header: logo pinned left, name + tagline centred, compact */
+  .nav { position: relative; justify-content: center; padding: 8px 16px; }
+  .nav-toggle { position: absolute; right: 16px; top: 50%; transform: translateY(-50%); }
+  .brand { position: relative; width: 100%; justify-content: center; gap: 0; text-align: center; }
+  .brand .crest { position: absolute; left: 0; top: 50%; transform: translateY(-50%); height: 40px; }
+  .brand:hover .crest { transform: translateY(-50%) scale(1.06); }
+  .brand > span { display: inline-flex; flex-direction: column; align-items: center; gap: 2px; }
+  .brand > span br { display: none; }
+  .site-header .brand-name { font-size: 1.12rem; letter-spacing: .005em; }
+  .site-header .brand-sub {
+    position: relative; padding-top: 3px; letter-spacing: .2em; font-size: .6rem;
+  }
+  .site-header .brand-sub::before {
+    content: ""; position: absolute; top: 0; left: 50%; transform: translateX(-50%);
+    width: 26px; height: 2px; border-radius: 2px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  }
   .nav-cta { display: none; }
   .topbar .tb-left { display: none; }
   .topbar .container { justify-content: center; }
   .section { padding: 56px 0; }
-  .hero-inner { padding: 60px 20px 70px; }
-  .hero h1 { font-size: clamp(1.9rem, 8vw, 2.6rem); }
+  /* compact hero so the video + the stats below share the first screen */
+  .hero { min-height: calc(100svh - 230px); }
+  .hero-inner {
+    min-height: calc(100svh - 230px);
+    display: flex; flex-direction: column; justify-content: center;
+    padding: 22px 18px 26px;
+  }
+  .hero-cta { gap: 8px; margin-top: 18px; }
+  /* darker overlay on mobile so the white heading stays readable over the bright video */
+  .hero::before {
+    background:
+      linear-gradient(180deg, rgba(9,13,24,.74) 0%, rgba(11,18,34,.5) 46%, rgba(9,13,24,.66) 100%);
+  }
+  .hero h1 { font-size: clamp(1.3rem, 5.4vw, 1.8rem); margin: 10px 0 9px; text-shadow: 0 2px 14px rgba(6,10,20,.85); }
+  .hero p { font-size: .88rem; line-height: 1.48; text-shadow: 0 1px 10px rgba(6,10,20,.8); }
   .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; }
-  .stats { grid-template-columns: repeat(2, 1fr); }
+  /* compact count-up stats that sit just under the hero in the first screen */
+  #welcome.section.navy { padding: 18px 0 22px; min-height: 0; }
+  .stats { grid-template-columns: repeat(2, 1fr); gap: 14px 16px; }
+  .stat .num { font-size: 1.5rem; }
+  .stat .lbl { font-size: .64rem; letter-spacing: .05em; }
   .cta-band { padding: 36px 24px; }
   .rung { flex-direction: column; align-items: flex-start; gap: 6px; }
   .rung .stage { min-width: auto; }
