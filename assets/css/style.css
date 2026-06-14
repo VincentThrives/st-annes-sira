@@ -98,7 +98,7 @@ img { max-width: 100%; display: block; }
 
 /* ---------- Floating quick-contact (right side, circular) ---------- */
 .contact-fab {
-  position: fixed; right: 16px; top: 50%; transform: translateY(-50%);
+  position: fixed; right: 16px; top: 36%; transform: translateY(-50%);
   z-index: 40; display: flex; flex-direction: column; gap: 14px;
 }
 .contact-fab-btn {
@@ -135,7 +135,7 @@ img { max-width: 100%; display: block; }
 .cf-call { background: var(--gold); }
 .cf-mail { background: linear-gradient(135deg, var(--navy), var(--maroon)); }
 @media (max-width: 760px) {
-  .contact-fab { right: 12px; gap: 12px; }
+  .contact-fab { right: 12px; gap: 12px; top: 48%; }
   .contact-fab-btn { width: 42px; height: 42px; }
   .contact-fab-btn .cf-ico { font-size: 1.1rem; }
   .contact-fab-btn .cf-label { font-size: .8rem; padding: 8px 13px; }
@@ -208,6 +208,7 @@ img { max-width: 100%; display: block; }
 .hero {
   position: relative; color: #fff; overflow: hidden; isolation: isolate;
   background: var(--navy);
+  min-height: calc(100svh - 84px); /* fill the screen below the header (mobile overrides this) */
 }
 /* auto-rotating background slideshow */
 .hero-slides { position: absolute; inset: 0; z-index: 0; }
@@ -243,14 +244,17 @@ img { max-width: 100%; display: block; }
   filter: brightness(0) invert(1);
 }
 .hero-inner {
-  position: relative; z-index: 2; padding: 104px 22px 116px;
-  max-width: calc(820px + 44px);
+  position: relative; z-index: 2;
+  padding: 30px clamp(20px, 4vw, 60px) 34px;
+  width: 100%; max-width: none;
+  min-height: calc(100svh - 84px); /* fill the screen below the header (mobile overrides this) */
+  display: flex; flex-direction: column; justify-content: flex-start;
   animation: heroRise .9s cubic-bezier(.2,.7,.2,1) both;
 }
 @keyframes heroRise { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: none; } }
 
 .hero .hero-eyebrow {
-  position: relative; overflow: hidden; white-space: nowrap;
+  position: relative; overflow: hidden; white-space: nowrap; align-self: flex-start;
   background: linear-gradient(135deg, #e0bf73 0%, var(--gold) 48%, #b8862f 100%);
   border: 1px solid rgba(255,255,255,.6);
   color: var(--navy); font-weight: 700; letter-spacing: .04em; font-size: .9rem;
@@ -284,17 +288,21 @@ img { max-width: 100%; display: block; }
   border-radius: 3px;
 }
 .hero p { font-size: 1.14rem; color: #eef1f7; max-width: 640px; text-shadow: 0 1px 10px rgba(8,12,22,.35); }
-.hero-cta { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 32px; }
+.hero-cta { display: flex; flex-wrap: wrap; gap: 14px; margin-top: auto; }
+/* Nammavidyalaya link on top (full width); Enquire + Discover share one line below */
+.hero-cta .btn:nth-child(3) { order: -1; flex: 0 0 100%; }
+.hero-cta .btn:nth-child(1),
+.hero-cta .btn:nth-child(2) { flex: 1 1 0; justify-content: center; text-align: center; }
 .btn-gold { box-shadow: 0 14px 30px -12px rgba(200,160,78,.8); }
 
-/* glass stat bar */
+/* glass stat bar — hidden; the count-up stats below the hero are used instead */
 .hero-stats {
-  display: flex; flex-wrap: wrap; gap: 0; margin-top: 40px;
+  display: none; flex-wrap: wrap; gap: 0; margin-top: 40px;
   background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.16);
   border-radius: 16px; backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);
   overflow: hidden; max-width: 660px;
 }
-.hstat { flex: 1 1 130px; padding: 18px 20px; border-right: 1px solid rgba(255,255,255,.12); }
+.hstat { flex: 1 1 130px; padding: 18px 20px; border-right: 1px solid rgba(255,255,255,.12); text-align: center; }
 .hstat:last-child { border-right: none; }
 .hstat .n { display: block; font-family: "Playfair Display", serif; font-size: 1.9rem; font-weight: 700; color: var(--gold); line-height: 1; }
 .hstat .n i { font-style: normal; font-size: 1rem; }
@@ -778,6 +786,9 @@ table.data tbody tr:hover { background: #f3ece0; }
   display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; font-size: .85rem;
 }
 .motto { font-family: "Playfair Display", serif; font-style: italic; color: var(--gold-soft); }
+.footer-credit { margin-top: 14px; text-align: center; font-size: .82rem; color: #c3ccda; }
+.footer-credit a { color: var(--gold); font-weight: 600; text-decoration: none; }
+.footer-credit a:hover { text-decoration: underline; }
 
 /* ---------- Reveal animation ---------- */
 .reveal { opacity: 0; transform: translateY(22px); transition: opacity .6s ease, transform .6s ease; }
@@ -880,10 +891,19 @@ table.data tbody tr:hover { background: #f3ece0; }
   .hero { min-height: calc(100svh - 230px); }
   .hero-inner {
     min-height: calc(100svh - 230px);
-    display: flex; flex-direction: column; justify-content: center;
-    padding: 22px 18px 26px;
+    display: flex; flex-direction: column; justify-content: flex-start;
+    padding: 12px 18px 30px;
   }
-  .hero-cta { gap: 8px; margin-top: 18px; }
+  /* push the buttons to the bottom of the hero (just above the navy banner) so more video shows */
+  .hero-cta { gap: 8px; margin-top: auto; flex-wrap: wrap; }
+  /* Nammavidyalaya link on top (full width); Enquire + Discover share one line below */
+  .hero-cta .btn:nth-child(3) { order: -1; flex: 0 0 100%; }
+  .hero-cta .btn:nth-child(1),
+  .hero-cta .btn:nth-child(2) { flex: 1 1 0; justify-content: center; text-align: center; }
+  /* chip hugs its text (flex hero would otherwise stretch it full width) */
+  .hero .hero-eyebrow { align-self: flex-start; }
+  /* centre the hero glass stats */
+  .hstat { text-align: center; }
   /* darker overlay on mobile so the white heading stays readable over the bright video */
   .hero::before {
     background:
