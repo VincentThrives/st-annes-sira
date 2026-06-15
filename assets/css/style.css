@@ -447,6 +447,21 @@ img { max-width: 100%; display: block; }
   background: linear-gradient(to top, rgba(13,18,30,.85), transparent);
 }
 .split .photo-frame { min-height: 0; aspect-ratio: 16 / 10; }
+/* Laboratory zigzag rows: photo on one side, heading + body stacked on the other.
+   Three blocks (head / photo / body) so mobile can show heading → photo → details. */
+.lab-row {
+  display: grid; gap: 24px 50px; align-items: center; margin-top: 44px;
+  grid-template-columns: .92fr 1.08fr;
+  grid-template-areas: "photo head" "photo body";
+}
+.lab-row.img-right {
+  grid-template-columns: 1.08fr .92fr;
+  grid-template-areas: "head photo" "body photo";
+}
+.lab-row .lab-head { grid-area: head; align-self: end; }
+.lab-row .lab-body { grid-area: body; align-self: start; }
+.lab-row .photo-frame { grid-area: photo; min-height: 0; aspect-ratio: 16 / 10; }
+.lab-row .lab-head .gold-rule { margin-bottom: 0; }
 /* larger video column on the About history section */
 .about-split { gap: 28px; grid-template-columns: 0.7fr 1.3fr; align-items: center; }
 /* zigzag laboratory rows */
@@ -799,6 +814,16 @@ table.data tbody tr:hover { background: #f3ece0; }
   .grid-3, .grid-4 { grid-template-columns: repeat(2, 1fr); }
   .split { grid-template-columns: 1fr; }
   .split.rev .media { order: 0; }
+  /* lab cards: single-column stack (heading → photo → details), centred, when narrow */
+  .lab-row, .lab-row.img-right {
+    grid-template-columns: 1fr;
+    grid-template-areas: "head" "photo" "body";
+    gap: 14px;
+  }
+  .lab-row .lab-head { text-align: center; align-self: auto; }
+  .lab-row .lab-head .gold-rule { margin-left: auto; margin-right: auto; }
+  .lab-row .lab-body { text-align: center; align-self: auto; }
+  .lab-row .lab-body .ticks { display: inline-block; text-align: left; }
   .footer-grid { grid-template-columns: 1fr 1fr; }
   .stats { grid-template-columns: repeat(2, 1fr); }
 }

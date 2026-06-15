@@ -80,16 +80,39 @@ if ('IntersectionObserver' in window && counters.length) {
 const y = document.querySelector('[data-year]');
 if (y) y.textContent = new Date().getFullYear();
 
-// Contact form (demo only)
+// Contact form — submits to Web3Forms (emails the office)
 const form = document.querySelector('#enquiry-form');
 if (form) {
-  form.addEventListener('submit', (e) => {
+  const note = document.querySelector('#form-status');
+  const btn = form.querySelector('button[type="submit"]');
+  const showNote = (msg, ok) => {
+    if (!note) return;
+    note.style.display = 'block';
+    note.textContent = msg;
+    note.style.color = ok ? 'var(--maroon)' : '#b00020';
+  };
+  form.addEventListener('submit', async (e) => {
     e.preventDefault();
-    const note = document.querySelector('#form-status');
-    if (note) {
-      note.style.display = 'block';
-      note.textContent = 'Thank you! Your enquiry has been recorded. Our office will contact you soon.';
+    const original = btn ? btn.textContent : '';
+    if (btn) { btn.disabled = true; btn.textContent = 'Sending…'; }
+    showNote('Sending your enquiry…', true);
+    try {
+      const res = await fetch(form.action, {
+        method: 'POST',
+        headers: { 'Accept': 'application/json' },
+        body: new FormData(form)
+      });
+      const data = await res.json();
+      if (res.ok && data.success) {
+        showNote('Thank you! Your enquiry has been sent. Our office will contact you soon.', true);
+        form.reset();
+      } else {
+        showNote('Sorry, something went wrong. Please call or email us directly.', false);
+      }
+    } catch (err) {
+      showNote('Network error. Please check your connection, or call/email us directly.', false);
+    } finally {
+      if (btn) { btn.disabled = false; btn.textContent = original; }
     }
-    form.reset();
   });
 }
